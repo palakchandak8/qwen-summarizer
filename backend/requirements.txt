@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-python-dateutil
-python-dotenv
-qwen-agent
-soundfile
-matplotlib
