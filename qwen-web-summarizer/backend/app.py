@@ -6,6 +6,7 @@ from agent import SummarizerAgent
 import uvicorn
 import json
 import traceback
+from config import GEMINI_API_KEY
 
 logging.basicConfig(
     filename='agent_trace.log',
@@ -38,7 +39,7 @@ async def summarize(request: Request):
     data = await request.json()
     content = data.get("content", "")
     mode = data.get("mode", "local")
-    api_key = data.get("gemini_api_key")
+    api_key = data.get("gemini_api_key") or GEMINI_API_KEY
     
     async def event_stream():
         yield "data: [START]\n\n"

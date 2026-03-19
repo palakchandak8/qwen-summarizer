@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const badgeThinking = document.getElementById("badge-thinking");
   
   let currentMode = "local";
-  let geminiApiKey = "AIzaSyC4zuqSp0Ilh7kraByZUPDqHY0q1wa1vXc";
   let thinkInterval = null;
   let abortController = null;
   let streamTimeout = null;
@@ -27,15 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateModeUI = (mode) => {
     currentMode = mode;
     if (mode === "local") {
-      modeBadge.textContent = "LOCAL▼";
-      modeBadge.style.backgroundColor = "#B8FF57";
-      mainHeader.className = "header green-bg";
+      modeBadge.textContent = "LOCAL MODE";
       toggleLocal.classList.add("active");
       toggleCloud.classList.remove("active");
     } else {
-      modeBadge.textContent = "CLOUD▼";
-      modeBadge.style.backgroundColor = "#FF6BFF";
-      mainHeader.className = "header pink-bg";
+      modeBadge.textContent = "CLOUD MODE";
       toggleLocal.classList.remove("active");
       toggleCloud.classList.add("active");
     }
@@ -65,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const setStatus = (msg, className = "") => {
     statusLine.textContent = msg;
-    statusLine.className = "status-line " + className;
+    statusLine.className = "status-time " + className;
   };
 
   // Navigation
@@ -113,30 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const startThinking = () => {
     badgeThinking.classList.remove("hidden");
-    const dot = document.getElementById("thinking-dot");
-    let visible = true;
-    thinkInterval = setInterval(() => {
-      visible = !visible;
-      dot.style.opacity = visible ? "1" : "0";
-    }, 500);
   };
 
   const stopThinking = () => {
     badgeThinking.classList.add("hidden");
-    if (thinkInterval) {
-      clearInterval(thinkInterval);
-      thinkInterval = null;
-    }
   };
 
   // Summarize logic
   btnSummarize.addEventListener("click", () => {
-    // validations
-    if (currentMode === "cloud" && !geminiApiKey) {
-      setStatus("Gemini API key required. Open Settings.", "status-error");
-      return;
-    }
-
     btnSummarize.textContent = "SUMMARIZING...";
     btnSummarize.disabled = true;
     outputPanel.textContent = "";
@@ -168,8 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             content: pageData.text,
-            mode: currentMode,
-            gemini_api_key: geminiApiKey
+            mode: currentMode
           }),
           signal: abortController.signal
         });
