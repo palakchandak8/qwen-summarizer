@@ -138,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setStatus(`Page: ${pageData.charCount.toLocaleString()} chars extracted`);
 
+      const url = pageData.url || "";
+      const page_title = pageData.title || "";
+
       abortController = new AbortController();
       resetTimeout();
 
@@ -147,7 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             content: pageData.text,
-            mode: currentMode
+            mode: currentMode,
+            url: url,
+            page_title: page_title
           }),
           signal: abortController.signal
         });

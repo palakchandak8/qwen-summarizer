@@ -12,3 +12,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 FASTAPI_PORT = 7864
 MAX_CONTEXT_CHARS = 12000   # Truncate page text beyond this before sending to LLM
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+MONGO_DB = "tldread"
+MONGO_COLLECTION = "summaries"

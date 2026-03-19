@@ -9,7 +9,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
     sendResponse({
       text: rawText,
-      charCount: rawText.length
+      charCount: rawText.length,
+      url: window.location.href,
+      title: document.title
     });
   }
   return true;

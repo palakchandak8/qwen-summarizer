@@ -1,4 +1,4 @@
-# Qwen Web Summarizer
+# TL;DRead
 
 A neobrutalist Chrome Extension that summarizes any webpage in real-time. It supports both a local, private model (Qwen via Ollama) and a cloud-based model (Google Gemini).
 

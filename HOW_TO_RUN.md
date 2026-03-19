@@ -1,4 +1,4 @@
-# How to Run the Qwen + Gemini Web Summarizer
+# How to Run TL;DRead
 
 Follow these step-by-step instructions to get both the backend and the Chrome Extension running locally on your machine.
 
@@ -10,7 +10,7 @@ The backend acts as the bridge that connects the Chrome extension to either the 
 
 1. **Open your Terminal** and navigate to the `backend` folder:
    ```bash
-   cd /Users/mac/Desktop/qwen-summarizer/qwen-web-summarizer/backend
+   cd /Users/mac/Desktop/qwen-summarizer/backend
    ```
 
 2. **Run the startup script**:
@@ -45,15 +45,15 @@ Now we'll load the extension into your browser.
 3. In the top right corner of the Extensions page, turn on the **Developer mode** toggle.
 4. Click the newly appeared **Load unpacked** button in the top left.
 5. In the file picker, select the `extension` folder located at:
-   `/Users/mac/Desktop/qwen-summarizer/qwen-web-summarizer/extension`
-6. You should now see the "Web Summarizer — Qwen + Gemini" extension in your list, and the puzzle piece/icon will appear in your Chrome toolbar.
+   `/Users/mac/Desktop/qwen-summarizer/extension`
+6. You should now see the "TL;DRead" extension in your list, and the puzzle piece/icon will appear in your Chrome toolbar.
 
 ---
 
-## Part 4: Use the Summarizer
+## Part 4: Use TL;DRead
 
 1. Navigate to any webpage you want to summarize (e.g., a news article or a blog post).
-2. Click the **Web Summarizer** icon in your Chrome toolbar.
+2. Click the **TL;DRead** icon in your Chrome toolbar.
 3. **Choose your Mode**:
    - The extension defaults to **LOCAL (Qwen3)**.
    - To use Gemini, click the **⚙ SETTINGS** gear icon. Select **CLOUD — Gemini**.

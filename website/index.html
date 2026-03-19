@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TL;DRead — Terminal</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo">TL;DRead</div>
+        <div class="subtitle">Live Terminal</div>
+      </div>
+      <div id="status-badge" class="badge badge-live">LIVE FEED</div>
+    </div>
+  </header>
+
+  <main>
+    <div id="error-banner" class="error-banner hidden">
+      Connection to backend 127.0.0.1:7864 failed. Retrying...
+    </div>
+    <div id="cards-grid"></div>
+    <div id="empty-state" class="empty-state hidden">
+      > No entries found. Waiting for incoming data stream...
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

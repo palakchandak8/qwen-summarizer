@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Web Summarizer — Qwen + Gemini",
+  "name": "TL;DRead",
   "version": "1.0",
-  "description": "Summarize any page locally with Qwen or via Gemini API",
+  "description": "Summarize any webpage instantly. Local via Qwen or cloud via Gemini.",
   "side_panel": {
     "default_path": "sidepanel.html"
   },
@@ -17,6 +17,11 @@
     }
   ],
   "icons": {
-    "128": "icon.png"
+    "16": "favicon.png",
+    "48": "favicon.png",
+    "128": "favicon.png"
+  },
+  "action": {
+    "default_icon": "favicon.png"
   }
 }
