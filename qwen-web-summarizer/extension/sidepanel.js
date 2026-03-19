@@ -100,10 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
     streamTimeout = setTimeout(() => {
       if (abortController) {
         abortController.abort();
-        setStatus("Stream timeout (15s)", "status-error");
+        setStatus("Stream timeout (60s)", "status-error");
         stopThinking();
       }
-    }, 15000);
+    }, 60000);
   };
 
   const startThinking = () => {

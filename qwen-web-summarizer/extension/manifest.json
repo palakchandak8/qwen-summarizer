@@ -3,11 +3,10 @@
   "name": "Web Summarizer — Qwen + Gemini",
   "version": "1.0",
   "description": "Summarize any page locally with Qwen or via Gemini API",
-  "permissions": ["activeTab", "scripting", "storage"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon.png"
+  "side_panel": {
+    "default_path": "sidepanel.html"
   },
+  "permissions": ["activeTab", "scripting", "storage", "sidePanel"],
   "background": {
     "service_worker": "background.js"
   },
