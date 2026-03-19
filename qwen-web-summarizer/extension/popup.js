@@ -12,15 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const toggleLocal = document.getElementById("mode-local");
   const toggleCloud = document.getElementById("mode-cloud");
-  const geminiKeyGroup = document.getElementById("gemini-key-group");
-  const inputApiKey = document.getElementById("input-api-key");
   
   const statusLine = document.getElementById("status-line");
   const outputPanel = document.getElementById("output-panel");
   const badgeThinking = document.getElementById("badge-thinking");
   
   let currentMode = "local";
-  let geminiApiKey = "";
+  let geminiApiKey = "AIzaSyC4zuqSp0Ilh7kraByZUPDqHY0q1wa1vXc";
   let thinkInterval = null;
   let abortController = null;
   let streamTimeout = null;
@@ -34,23 +32,19 @@ document.addEventListener("DOMContentLoaded", () => {
       mainHeader.className = "header green-bg";
       toggleLocal.classList.add("active");
       toggleCloud.classList.remove("active");
-      geminiKeyGroup.classList.add("hidden");
     } else {
       modeBadge.textContent = "CLOUD▼";
       modeBadge.style.backgroundColor = "#FF6BFF";
       mainHeader.className = "header pink-bg";
       toggleLocal.classList.remove("active");
       toggleCloud.classList.add("active");
-      geminiKeyGroup.classList.remove("hidden");
     }
   };
 
   // Load setttings
-  chrome.storage.local.get(["mode", "geminiApiKey"], (res) => {
+  chrome.storage.local.get(["mode"], (res) => {
     if (res.mode) currentMode = res.mode;
-    if (res.geminiApiKey) geminiApiKey = res.geminiApiKey;
     updateModeUI(currentMode);
-    inputApiKey.value = geminiApiKey;
     checkHealth();
   });
 
@@ -91,10 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleCloud.addEventListener("click", () => updateModeUI("cloud"));
   
   btnSave.addEventListener("click", () => {
-    geminiApiKey = inputApiKey.value.trim();
     chrome.storage.local.set({
-      mode: currentMode,
-      geminiApiKey: geminiApiKey
+      mode: currentMode
     }, () => {
       btnSave.textContent = "SAVED!";
       setTimeout(() => btnSave.textContent = "SAVE SETTINGS", 1000);

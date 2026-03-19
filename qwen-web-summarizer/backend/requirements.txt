@@ -4,3 +4,6 @@ httpx
 qwen-agent[code_interpreter]
 python-dotenv
 pydantic
+numpy
+soundfile
+python-dateutil
