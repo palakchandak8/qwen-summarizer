@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Web Summarizer</title>
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div id="main-view">
+    <div class="header" id="main-header">
+      <div class="header-title">██ WEB SUMMARIZER</div>
+      <div class="header-controls">
+        <button id="btn-settings" class="icon-btn" title="Settings">⚙ SETTINGS</button>
+        <div id="mode-badge" class="badge">LOCAL▼</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <button id="btn-summarize" class="main-btn">⚡ SUMMARIZE THIS PAGE</button>
+      
+      <div class="status-line" id="status-line">
+        Ready
+      </div>
+
+      <div class="output-container">
+        <div id="output-panel" class="output-panel"></div>
+        <div id="badge-thinking" class="badge-thinking hidden">Reasoning...<span id="thinking-dot">●</span></div>
+      </div>
+
+      <button id="btn-copy" class="main-btn hidden">📋 COPY</button>
+    </div>
+  </div>
+
+  <div id="settings-view" class="hidden">
+    <div class="header yellow-bg">
+      <button id="btn-back" class="icon-btn">← BACK</button>
+      <div class="header-title">SETTINGS</div>
+    </div>
+    
+    <div class="content settings-content">
+      <div class="settings-group">
+        <label>INFERENCE MODE</label>
+        <div class="toggle-group">
+          <button id="mode-local" class="toggle-btn active" data-mode="local">LOCAL — Qwen3</button>
+          <button id="mode-cloud" class="toggle-btn" data-mode="cloud">CLOUD — Gemini</button>
+        </div>
+      </div>
+
+      <div class="settings-group" id="gemini-key-group" class="hidden">
+        <label>GEMINI API KEY</label>
+        <input type="password" id="input-api-key" placeholder="Enter API Key...">
+      </div>
+      
+      <div style="margin-top:auto">
+        <button id="btn-save" class="main-btn">SAVE SETTINGS</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

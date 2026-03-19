@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Web Summarizer — Qwen + Gemini",
+  "version": "1.0",
+  "description": "Summarize any page locally with Qwen or via Gemini API",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
+}
