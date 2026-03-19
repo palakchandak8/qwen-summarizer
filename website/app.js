@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:7864";
+const API_BASE = "http://localhost:3000";
 const REFRESH_INTERVAL = 30000;
 
 async function fetchSummaries() {
