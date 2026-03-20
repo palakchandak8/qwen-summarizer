@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "qwen3:1.7b"
+OLLAMA_MODEL = "llama3.2:1b"
 
 GEMINI_MODEL = "gemini-2.5-flash"
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta"

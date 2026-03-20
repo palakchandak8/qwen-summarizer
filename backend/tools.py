@@ -13,8 +13,12 @@ class ExtractContent(BaseTool):
 
     def call(self, params: str, **kwargs) -> str:
         # In newer qwen_agent versions, params may come as dict
+        import config
+        max_chars_limit = config.MAX_CONTEXT_CHARS
+        
         if isinstance(params, dict):
             raw_text = params.get("raw_page_text", "")
+            max_chars_limit = params.get("max_chars", max_chars_limit)
         else:
             raw_text = params
             
@@ -26,9 +30,8 @@ class ExtractContent(BaseTool):
         cleaned_text = '\n'.join(lines)
         cleaned_text = re.sub(r'\n{2,}', '\n\n', cleaned_text).strip()
         
-        # Truncate to MAX_CONTEXT_CHARS
-        from config import MAX_CONTEXT_CHARS
-        cleaned_text = cleaned_text[:MAX_CONTEXT_CHARS]
+        # Truncate to the provided limit
+        cleaned_text = cleaned_text[:max_chars_limit]
         
         return f"[CONTENT: {len(cleaned_text)} chars]\n{cleaned_text}"
 

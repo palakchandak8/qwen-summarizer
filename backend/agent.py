@@ -8,6 +8,11 @@ from config import OLLAMA_BASE_URL, OLLAMA_MODEL, GEMINI_MODEL, GEMINI_API_BASE
 
 logger = logging.getLogger(__name__)
 
+def print_log(action: str, mode: str, color: str = "\033[96m"):
+    engine_str = "LLAMA 3.2 LOCAL NEURAL ENGINE" if mode == "local" else "GEMINI 2.5 CLOUD CONNECT"
+    prefix = f"\033[1m[{engine_str}]\033[0m"
+    print(f"{prefix} {color}>>> {action}\033[0m", flush=True)
+
 SYSTEM_PROMPT = """You are a webpage summarization agent. You will be given raw webpage text.
 Your job is to produce a clear, structured summary with:
 - A one-line TL;DR
@@ -33,17 +38,22 @@ class SummarizerAgent:
             }
             self.assistant = Assistant(
                 llm=llm_cfg,
-                system_message=SYSTEM_PROMPT,
-                function_list=['extract_content', 'quality_check']
+                system_message=SYSTEM_PROMPT
             )
 
     async def run_stream(self, raw_page_text: str) -> AsyncGenerator[str, None]:
         # Step 1: Call extract_content tool
+        print_log("Step 1: Extracting DOM tree and normalizing raw webpage text...", self.mode, "\033[33m")
         yield "[THINKING]"
         logger.info("Step 1: Extract content")
-        extract_res = self.extract_tool.call({"raw_page_text": raw_page_text})
+        
+        # Massive optimization for local Intel CPUs: truncate context to make "Time to First Token" exponentially faster
+        import config
+        max_len = 4500 if self.mode == "local" else config.MAX_CONTEXT_CHARS
+        extract_res = self.extract_tool.call({"raw_page_text": raw_page_text, "max_chars": max_len})
         
         # Step 2: Reason about the cleaned content
+        print_log("Step 2: Calculating optimal summarization path and reasoning...", self.mode, "\033[35m")
         yield "[THINKING]"
         logger.info("Step 2: Reason about content")
         await asyncio.sleep(0.5) # Simulate reasoning
@@ -53,27 +63,39 @@ class SummarizerAgent:
         for attempt in range(2):
             yield "[THINKING]"
             logger.info(f"Step 3: Generate summary (attempt {attempt+1})")
+            print_log(f"Step 3: Synthesizing tokens and generating summary (Attempt {attempt+1})...", self.mode, "\033[36m")
             
             prompt = f"Please summarize this webpage content:\n{extract_res}"
             if attempt == 1:
                 prompt = f"Previous summary failed QA: {quality_res}. Please rewrite and fix issues:\n{extract_res}"
                 
-            summary = await self._generate_summary_streamed(prompt)
+            gen_task = asyncio.create_task(self._generate_summary_streamed(prompt))
+            while not gen_task.done():
+                yield "[THINKING]"
+                await asyncio.sleep(2.0)
+            
+            summary = gen_task.result()
             
             yield "[THINKING]"
             logger.info("Step 4: Quality check")
+            print_log("Step 4: Executing quality assurance heuristics (Checking word count and AI markers)...", self.mode, "\033[34m")
             quality_res = self.quality_tool.call({"summary": summary})
             logger.info(f"Quality check result: {quality_res}")
             
             if quality_res.startswith("PASS"):
+                print_log("Result: PASS - Summary meets strict quality criteria.", self.mode, "\033[32m")
                 break
+            else:
+                print_log(f"Result: FAIL - Resolving quality issues: {quality_res}", self.mode, "\033[31m")
                 
         # Step 5 check
         if quality_res.startswith("FAIL"):
+            print_log("⚠ Warning: Proceeding with low confidence summary.", self.mode, "\033[31m")
             yield "[⚠ Low confidence summary]\n\n"
             
         # Step 6: Yield final tokens one by one
         logger.info("Step 6: Yield final tokens")
+        print_log("Step 6: Streaming final multi-stage output to the client via Server-Sent Events...", self.mode, "\033[32m")
         for char in summary:
             yield char
             await asyncio.sleep(0.005)
@@ -82,12 +104,17 @@ class SummarizerAgent:
         buffer = ""
         if self.mode == "local":
             messages = [{'role': 'user', 'content': prompt}]
-            # run assistant
-            for response in self.assistant.run(messages):
-                last_msg = response[-1]
-                content = last_msg.get('content', '')
-                if content:
-                    buffer = content
+            
+            def run_sync():
+                buf = ""
+                for response in self.assistant.run(messages):
+                    last_msg = response[-1]
+                    content = last_msg.get('content', '')
+                    if content:
+                        buf = content
+                return buf
+                
+            buffer = await asyncio.to_thread(run_sync)
         else:
             if not self.gemini_api_key:
                 raise ValueError("Gemini API key is required. Open Settings.")

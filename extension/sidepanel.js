@@ -118,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
   btnSummarize.addEventListener("click", () => {
     btnSummarize.textContent = "SUMMARIZING...";
     btnSummarize.disabled = true;
-    outputPanel.textContent = "";
+    outputPanel.innerHTML = "";
+    let fullOutputText = "";
     btnCopy.classList.add("hidden");
     stopThinking();
 
@@ -191,19 +192,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 setStatus(errMsg, "status-error");
                 stopThinking();
               } else if (tokenStr.startsWith("[⚠ Low confidence summary]")) {
-                outputPanel.textContent += "[⚠ Low confidence summary]\n\n";
+                fullOutputText += "[⚠ Low confidence summary]\n\n";
+                outputPanel.innerHTML = fullOutputText;
               } else {
                 stopThinking(); // Any token hides reasoning badge
                 try {
                   // decode JSON char
                   let char = JSON.parse(tokenStr);
-                  outputPanel.textContent += char;
-                  outputPanel.scrollTop = outputPanel.scrollHeight;
+                  fullOutputText += char;
                 } catch(e) {
                   // Fallback
-                  outputPanel.textContent += tokenStr;
-                  outputPanel.scrollTop = outputPanel.scrollHeight;
+                  fullOutputText += tokenStr;
                 }
+                
+                let safeHTML = fullOutputText
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/\*\*(.*?)\*\*/g, '<b class="bold">$1</b>');
+                outputPanel.innerHTML = safeHTML;
+                outputPanel.scrollTop = outputPanel.scrollHeight;
               }
             }
           }
