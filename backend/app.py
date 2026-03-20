@@ -57,7 +57,7 @@ async def summarize(req: SummarizeRequest):
         try:
             agent = SummarizerAgent(mode=mode, gemini_api_key=api_key)
             async for token in agent.run_stream(content):
-                if token in ["[THINKING]", "[START]", "[DONE]"]:
+                if token in ["[THINKING]", "[START]", "[DONE]"] or token.startswith("[STAGE:"):
                     yield f"data: {token}\n\n"
                 elif token.startswith("[ERROR]"):
                     yield f"data: {token}\n\n"

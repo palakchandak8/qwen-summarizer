@@ -377,3 +377,105 @@ h1, h2, h3, .bold {
 .settings-actions {
   margin-top: auto;
 }
+
+/* Flowchart UI */
+.workflow-flowchart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: white;
+  border-bottom: 1px dashed #B3D4FF;
+  gap: 4px;
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 2px solid #001B4B;
+  box-shadow: 2px 2px 0px #001B4B;
+  padding: 6px 8px;
+  min-width: 60px;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.flow-node .node-icon {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.flow-node .node-text {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #001B4B;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.flow-node .node-status {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 4px;
+  background: #E8F0FC;
+  border: 1px solid #B3D4FF;
+  border-radius: 2px;
+  color: #4A6B9C;
+}
+
+/* Pending State */
+.flow-node.pending {
+  opacity: 0.6;
+  box-shadow: 0px 0px 0px #001B4B;
+  transform: translateY(2px) translateX(2px);
+  border-color: #B3D4FF;
+}
+.flow-node.pending .node-status {
+  background: #F0F4F8;
+  color: #87A3D0;
+}
+
+/* Active State */
+.flow-node.active {
+  border-color: #0066FF;
+  box-shadow: 3px 3px 0px #0066FF;
+  transform: translateY(-1px) translateX(-1px);
+}
+.flow-node.active .node-status {
+  background: #0066FF;
+  color: white;
+  border-color: #0046B3;
+  animation: blink 1.5s infinite;
+}
+
+/* Done State */
+.flow-node.done {
+  border-color: #00CC66;
+  box-shadow: 2px 2px 0px #00994D;
+  transform: translateY(0) translateX(0);
+}
+.flow-node.done .node-status {
+  background: #00CC66;
+  color: white;
+  border-color: #00994D;
+}
+
+.flow-line {
+  flex: 1;
+  height: 2px;
+  background: #B3D4FF;
+  z-index: 1;
+  margin: 0 -4px;
+  transition: background 0.3s;
+}
+.flow-line.active {
+  background: #0066FF;
+}
+.flow-line.done {
+  background: #00CC66;
+}

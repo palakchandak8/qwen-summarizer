@@ -44,7 +44,7 @@ class SummarizerAgent:
     async def run_stream(self, raw_page_text: str) -> AsyncGenerator[str, None]:
         # Step 1: Call extract_content tool
         print_log("Step 1: Extracting DOM tree and normalizing raw webpage text...", self.mode, "\033[33m")
-        yield "[THINKING]"
+        yield "[STAGE:EXTRACT]"
         logger.info("Step 1: Extract content")
         
         # Massive optimization for local Intel CPUs: truncate context to make "Time to First Token" exponentially faster
@@ -54,14 +54,14 @@ class SummarizerAgent:
         
         # Step 2: Reason about the cleaned content
         print_log("Step 2: Calculating optimal summarization path and reasoning...", self.mode, "\033[35m")
-        yield "[THINKING]"
+        yield "[STAGE:REASON]"
         logger.info("Step 2: Reason about content")
         await asyncio.sleep(0.5) # Simulate reasoning
         
         # We will loop for Step 3, 4, 5
         summary = ""
         for attempt in range(2):
-            yield "[THINKING]"
+            yield "[STAGE:GENERATE]"
             logger.info(f"Step 3: Generate summary (attempt {attempt+1})")
             print_log(f"Step 3: Synthesizing tokens and generating summary (Attempt {attempt+1})...", self.mode, "\033[36m")
             
@@ -71,12 +71,12 @@ class SummarizerAgent:
                 
             gen_task = asyncio.create_task(self._generate_summary_streamed(prompt))
             while not gen_task.done():
-                yield "[THINKING]"
+                yield "[STAGE:GENERATE]"
                 await asyncio.sleep(2.0)
             
             summary = gen_task.result()
             
-            yield "[THINKING]"
+            yield "[STAGE:QUALITY]"
             logger.info("Step 4: Quality check")
             print_log("Step 4: Executing quality assurance heuristics (Checking word count and AI markers)...", self.mode, "\033[34m")
             quality_res = self.quality_tool.call({"summary": summary})

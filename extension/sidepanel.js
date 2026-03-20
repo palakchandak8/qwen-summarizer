@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const outputPanel = document.getElementById("output-panel");
   const badgeThinking = document.getElementById("badge-thinking");
   
+  const workflowFlowchart = document.getElementById("workflow-flowchart");
+  const stageNodes = {
+    "EXTRACT": document.getElementById("stage-EXTRACT"),
+    "REASON": document.getElementById("stage-REASON"),
+    "GENERATE": document.getElementById("stage-GENERATE"),
+    "QUALITY": document.getElementById("stage-QUALITY")
+  };
+  const stageLines = {
+    "REASON": document.getElementById("line-REASON"),
+    "GENERATE": document.getElementById("line-GENERATE"),
+    "QUALITY": document.getElementById("line-QUALITY")
+  };
+  
   let currentMode = "local";
   let thinkInterval = null;
   let abortController = null;
@@ -122,6 +135,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let fullOutputText = "";
     btnCopy.classList.add("hidden");
     stopThinking();
+    
+    workflowFlowchart.classList.remove("hidden");
+    Object.values(stageNodes).forEach(node => {
+      if (node) {
+        node.className = "flow-node pending";
+        node.querySelector(".node-status").textContent = "IDLE";
+      }
+    });
+    Object.values(stageLines).forEach(line => {
+      if (line) line.className = "flow-line pending";
+    });
 
     chrome.runtime.sendMessage({ action: "getPageText" }, async (response) => {
       if (response && response.error) {
@@ -183,8 +207,42 @@ document.addEventListener("DOMContentLoaded", () => {
               if (tokenStr === "[START]") {
                 // start
               } else if (tokenStr === "[THINKING]") {
-                startThinking();
+                // Legacy badge fallback, normally handled by flowchart now
+              } else if (tokenStr.startsWith("[STAGE:")) {
+                const stageName = tokenStr.substring(7, tokenStr.length - 1);
+                
+                let foundCurrent = false;
+                for (let key in stageNodes) {
+                  const node = stageNodes[key];
+                  if (!node) continue;
+                  const statusEl = node.querySelector(".node-status");
+                  const line = stageLines[key];
+                  
+                  if (key === stageName) {
+                     node.className = "flow-node active";
+                     statusEl.textContent = "ACTIVE";
+                     foundCurrent = true;
+                     if(line) line.className = "flow-line active";
+                  } else if (!foundCurrent) {
+                     node.className = "flow-node done";
+                     statusEl.textContent = "DONE";
+                     if(line) line.className = "flow-line done";
+                  } else {
+                     node.className = "flow-node pending";
+                     statusEl.textContent = "IDLE";
+                     if(line) line.className = "flow-line pending";
+                  }
+                }
               } else if (tokenStr === "[DONE]") {
+                Object.values(stageNodes).forEach(node => {
+                  if (node) {
+                    node.className = "flow-node done";
+                    node.querySelector(".node-status").textContent = "DONE";
+                  }
+                });
+                Object.values(stageLines).forEach(line => {
+                  if (line) line.className = "flow-line done";
+                });
                 stopThinking();
                 btnCopy.classList.remove("hidden");
               } else if (tokenStr.startsWith("[ERROR]")) {

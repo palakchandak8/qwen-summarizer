@@ -47,6 +47,33 @@
             <span class="output-label">🔗 PAGE EXTRACT</span>
             <span class="output-stats hidden" id="badge-thinking">Reasoning<span class="blink">...</span></span>
           </div>
+          
+          <div class="workflow-flowchart hidden" id="workflow-flowchart">
+            <div class="flow-node pending" id="stage-EXTRACT">
+              <div class="node-icon">📄</div>
+              <div class="node-text">Extract</div>
+              <div class="node-status">IDLE</div>
+            </div>
+            <div class="flow-line" id="line-REASON"></div>
+            <div class="flow-node pending" id="stage-REASON">
+              <div class="node-icon">🧠</div>
+              <div class="node-text">Reason</div>
+              <div class="node-status">IDLE</div>
+            </div>
+            <div class="flow-line" id="line-GENERATE"></div>
+            <div class="flow-node pending" id="stage-GENERATE">
+              <div class="node-icon">⚡</div>
+              <div class="node-text">Generate</div>
+              <div class="node-status">IDLE</div>
+            </div>
+            <div class="flow-line" id="line-QUALITY"></div>
+            <div class="flow-node pending" id="stage-QUALITY">
+              <div class="node-icon">🛡</div>
+              <div class="node-text">Verify</div>
+              <div class="node-status">IDLE</div>
+            </div>
+          </div>
+
           <div id="output-panel" class="output-panel">> waiting for input...</div>
           <div class="output-footer">
             <span>> qwen.fi@base:~$</span>
