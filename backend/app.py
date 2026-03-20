@@ -66,7 +66,7 @@ async def summarize(req: SummarizeRequest):
                     safe_char = json.dumps(token)
                     yield f"data: {safe_char}\n\n"
             
-            # Save to MongoDB
+            # Save to local JSON store
             try:
                 save_summary(
                     url=url,
@@ -76,7 +76,7 @@ async def summarize(req: SummarizeRequest):
                     summary=full_summary
                 )
             except Exception as db_err:
-                logger.warning(f"Failed to save summary to MongoDB: {db_err}")
+                logger.warning(f"Failed to save summary: {db_err}")
 
             yield "data: [DONE]\n\n"
         except Exception as e:

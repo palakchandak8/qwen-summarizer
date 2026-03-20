@@ -62,7 +62,13 @@ function createCard(summary) {
   
   const sumText = document.createElement("div");
   sumText.className = "card-summary";
-  sumText.textContent = summary.summary || "";
+  let rawSummary = summary.summary || "";
+  let safeSum = rawSummary
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+  sumText.innerHTML = safeSum;
   
   body.appendChild(title);
   body.appendChild(sumText);
