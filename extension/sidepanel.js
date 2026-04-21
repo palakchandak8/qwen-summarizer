@@ -97,6 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
       mode: currentMode
     }, () => {
       btnSave.textContent = "SAVED!";
+      settingsView.classList.add("hidden");
+      mainView.classList.remove("hidden");
+      checkHealth();
       setTimeout(() => btnSave.textContent = "SAVE SETTINGS", 1000);
     });
   });

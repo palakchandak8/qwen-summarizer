@@ -1,29 +1,11 @@
 [
   {
-    "_id": "92cc6fac-4f3f-470f-94b3-865285c47a45",
-    "url": "https://www.uipath.com/blog/ai/5-pillars-building-enterprise-foundation-for-agentic-testing",
-    "page_title": "5 pillars for building an enterprise foundation for agentic testing | UiPath",
-    "char_count": 11552,
-    "mode": "cloud",
-    "summary": "**TL;DR:** Agentic software testing is presented as a new enterprise operating model for continuous quality, moving beyond isolated AI assistance to integrate intelligent agents across the software delivery lifecycle.\n\n**Key Points:**\n*   The accelerating pace of AI-driven code creation requires a new approach to quality that goes beyond individual AI-assisted tasks.\n*   Agentic testing establishes an enterprise foundation by leveraging built-in and custom intelligent agents across the lifecycle to support tasks from requirements assessment to outcome analysis.\n*   This model aims to augment human testers, freeing them from repetitive work to focus on strategy, risk, and release confidence.\n*   Isolated AI features are insufficient for complex enterprise environments, which require shared context, coordination, and governance for scaled adoption.\n*   Key foundational pillars include leveraging built-in agents for quick value and building custom agents that reflect an enterprise's specific reality, architecture, and compliance needs.\n\n**Why it matters:** Agentic testing enables organizations to keep pace with rapid software changes, make better release decisions, identify meaningful product risk earlier, and deliver change with greater confidence.",
-    "created_at": "2026-03-20T07:19:43.571514+00:00"
-  },
-  {
-    "_id": "38d2450a-5425-4f3d-83a5-a84fd42db45a",
-    "url": "https://www.uipath.com/blog/ai/5-pillars-building-enterprise-foundation-for-agentic-testing",
-    "page_title": "5 pillars for building an enterprise foundation for agentic testing | UiPath",
-    "char_count": 11552,
-    "mode": "cloud",
-    "summary": "**TL;DR:** Agentic software testing is an enterprise-wide operating model that leverages intelligent agents to amplify human impact and improve continuous quality throughout the software delivery lifecycle.\n\n**Key Bullet Points:**\n*   It represents a shift from isolated AI assistance to an integrated enterprise foundation for AI in quality engineering.\n*   Agentic testing amplifies testers' impact by handling repetitive tasks, allowing them to focus on strategy, risk, and release confidence.\n*   The approach aims to enable better release decisions, earlier identification of product risks, and greater confidence in delivering change.\n*   Unlike standalone AI features, an enterprise foundation provides the necessary coordination, governance, and customizability for true enterprise-scale adoption.\n*   Implementation begins with leveraging built-in agents for quick value and building custom agents tailored to specific enterprise environments.\n\n**Why it matters:** This new operating model is crucial for quality teams to keep pace with faster code creation and increasingly complex application landscapes driven by AI, maintaining control and confidence in software delivery.",
-    "created_at": "2026-03-20T07:18:41.117426+00:00"
-  },
-  {
-    "_id": "5196b3ea-eab5-4044-a4ba-788b1959eedc",
-    "url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    "page_title": "Artificial intelligence - Wikipedia",
-    "char_count": 184475,
+    "_id": "95fcc0a9-b717-4cec-8a81-a401b56a8cdd",
+    "url": "https://github.com/palakchandak8/TLDRead-WebSummarizer",
+    "page_title": "palakchandak8/TLDRead-WebSummarizer",
+    "char_count": 9455,
     "mode": "local",
-    "summary": "Here is a summary of the webpage content:\n\n**Summary**\n\nArtificial intelligence (AI) refers to systems that can perform tasks typically associated with human intelligence, such as learning, reasoning, and decision-making. AI has numerous high-profile applications, including web search engines, virtual assistants, autonomous vehicles, and generative tools.\n\nDespite its rapid progress, many AI applications are not perceived as such due to being \"cutting-edge\" and becoming common enough that they are no longer labeled as AI. Researchers have adapted various techniques like search, optimization, and statistics to achieve their goals in artificial intelligence research. Some companies aim to create \"artificial general intelligence,\" which can perform virtually any cognitive task at least as well as a human.\n\n**Key Points**\n\n* Artificial intelligence is the capability of computational systems to perform tasks often associated with human intelligence.\n* AI has numerous applications, including web search engines, virtual assistants, and generative tools.\n* Researchers have adapted various techniques to achieve their goals in artificial intelligence research.\n* Some companies aim to create \"artificial general intelligence,\" which can perform virtually any cognitive task.\n\n**Why it Matters**\n\nArtificial intelligence has the potential to revolutionize many aspects of our lives, but its rapid progress and unintended consequences necessitate ongoing discussions about regulatory policies and ethics to ensure its safety and benefits.",
-    "created_at": "2026-03-20T07:13:53.054993+00:00"
+    "summary": "Here is a summary of the webpage content:\n\n**TL;DR:** TLDRead-WebSummarizer is an AI-powered Chrome extension that distills any webpage into real-time summaries in various engine options (local private mode and cloud with Gemini 2.5 Flash).\n\n**Key Bullet Points:**\n\n1. **Engine Options**: Local Private Mode runs offline via Ollama while Cloud uses Gemini 2.5 Flash for better performance.\n2. **Summary Generation**: Real-time streaming with Server-Sent Events, true agentic loop, dual engine switching (Qwen3 and Gemini), live dashboard, and side panel UI.\n3. **Features**:\n\t* Extracting content: Strip noise, deduping blanks, truncating to 12k characters\n\t* Reasoning and planning: Emitting \"Thinking\" badge in the UI with a badge indicating reasoning level\n\t* Generating summaries: Local to Qwen3 via Ollama, cloud to Gemini using REST SSE\n\n**Why it Matters:** \nTLDRead-WebSummarizer offers both private offline mode and cloud-based summary generation options, catering to different needs and use cases. Its ability to switch between local and cloud engines in real-time provides flexibility and adaptability.\n\nPlease note that the content is quite lengthy, but I've avoided hallucinating any information.",
+    "created_at": "2026-04-21T07:28:31.977263+00:00"
   }
 ]
